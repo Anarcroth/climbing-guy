@@ -1,10 +1,8 @@
 # climbing-guy
 
-A Quil sketch designed to ... well, that part is up to you.
+This guy climbs your screen. You can use him as your screensaver :sunglasses:!
 
 ## Usage
-
-LightTable - open `core.clj` and press `Ctrl+Shift+Enter` to evaluate the file.
 
 Emacs - run cider, open `core.clj` and press `C-c C-k` to evaluate the file.
 
@@ -12,7 +10,6 @@ REPL - run `(require 'climbing-guy.core)`.
 
 ## License
 
-Copyright © 2016 FIXME
+Distributed under the GNU General Public License v3.0
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Copyright © 2007 Free Software Foundation, Inc. <https://fsf.org/>
