@@ -1,6 +1,14 @@
 (ns climbing-guy.core
+  (:import java.awt.Toolkit)
   (:require [quil.core :as q]
             [quil.middleware :as m]))
+
+(defn screen []
+  (.getScreenSize (Toolkit/getDefaultToolkit)))
+
+(defn getScreenSize []
+  [(int (.getWidth (screen)))
+   (int (.getHeight (screen)))])
 
 (defn setup []
   ; Set frame rate to 30 frames per second.
@@ -36,7 +44,7 @@
   [& args]
   (q/sketch
    :title "You spin my circle right round"
-   :size [500 500]
+   :size (getScreenSize)
    ; setup function called only once, during sketch initialization.
    :setup setup
    ; update-state is called on each iteration before draw-state.
