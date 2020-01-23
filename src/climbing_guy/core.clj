@@ -36,14 +36,13 @@
   {:color (mod (+ (:color state) 0.7) 255)
    :angle (+ (:angle state) 0.1)})
 
-;(def holds (take 20 (gen-holds)))
+(def get-holds (gen-holds))
 
 (defn draw-state [state]
   (q/background 240)
   (q/fill (:color state) 255 255)
-  (let [holds (gen-holds)]
-    (doseq [hold holds]
-      (println (q/rect (get hold :x) (get hold :y) (get hold :r) (get hold :r))))))
+  (doseq [hold get-holds]
+    (q/rect (get hold :x) (get hold :y) (get hold :r) (get hold :r))))
 
 (defn -main
   [& args]
