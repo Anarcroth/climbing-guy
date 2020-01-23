@@ -23,6 +23,12 @@
            hold {:x x :y y :r r}]
        (cons hold (lazy-seq (gen-holds (+ 13 nx))))))))
 
+(def get-holds (gen-holds))
+
+(defn create-hold
+  [hold]
+  (q/rect (get hold :x) (get hold :y) (get hold :r) (get hold :r)))
+
 (defn setup []
   (q/frame-rate 1)
   (q/color-mode :hsb)
@@ -36,13 +42,11 @@
   {:color (mod (+ (:color state) 0.7) 255)
    :angle (+ (:angle state) 0.1)})
 
-(def get-holds (gen-holds))
-
 (defn draw-state [state]
   (q/background 240)
   (q/fill (:color state) 255 255)
   (doseq [hold get-holds]
-    (q/rect (get hold :x) (get hold :y) (get hold :r) (get hold :r))))
+    (create-hold hold)))
 
 (defn -main
   [& args]
