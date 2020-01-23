@@ -10,10 +10,21 @@
   [(int (.getWidth (screen)))
    (int (.getHeight (screen)))])
 
+(defn rand-x-pos [] (+ 800 (rand-int (- 850 800))))
+
+(defn gen-holds
+  ([] (gen-holds 5))
+  ([nx]
+   (if (>= nx 800)
+     '()
+     (let [x (rand-x-pos)
+           y (- 800 nx)
+           r 10
+           hold {:x x :y y :r r}]
+       (cons hold (lazy-seq (gen-holds (+ 13 nx))))))))
+
 (defn setup []
-  ; Set frame rate to 30 frames per second.
-  (q/frame-rate 30)
-  ; Set color mode to HSB (HSV) instead of default RGB.
+  (q/frame-rate 1)
   (q/color-mode :hsb)
   ; setup function returns initial state. It contains
   ; circle color and position.
@@ -25,33 +36,22 @@
   {:color (mod (+ (:color state) 0.7) 255)
    :angle (+ (:angle state) 0.1)})
 
+;(def holds (take 20 (gen-holds)))
+
 (defn draw-state [state]
-  ; Clear the sketch by filling it with light-grey color.
   (q/background 240)
-  ; Set circle color.
   (q/fill (:color state) 255 255)
-  ; Calculate x and y coordinates of the circle.
-  (let [angle (:angle state)
-        x (* 150 (q/cos angle))
-        y (* 150 (q/sin angle))]
-    ; Move origin point to the center of the sketch.
-    (q/with-translation [(/ (q/width) 2)
-                         (/ (q/height) 2)]
-      ; Draw the circle.
-      (q/ellipse x y 100 100))))
+  (let [holds (gen-holds)]
+    (doseq [hold holds]
+      (println (q/rect (get hold :x) (get hold :y) (get hold :r) (get hold :r))))))
 
 (defn -main
   [& args]
   (q/sketch
-   :title "You spin my circle right round"
-   :size (getScreenSize)
-   ; setup function called only once, during sketch initialization.
+   :title "Climbing-guy"
+   :size [1292 800]
    :setup setup
-   ; update-state is called on each iteration before draw-state.
    :update update-state
    :draw draw-state
    :features [:keep-on-top :exit-on-close]
-   ; This sketch uses functional-mode middleware.
-   ; Check quil wiki for more info about middlewares and particularly
-   ; fun-mode.
    :middleware [m/fun-mode]))
