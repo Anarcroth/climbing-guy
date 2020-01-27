@@ -46,7 +46,14 @@
   (q/background 240)
   (q/fill (:color state) 255 255)
   (doseq [hold get-holds]
-    (create-hold hold)))
+    (create-hold hold))
+  ; TODO move this to an atom so it can change over time
+  (q/line 100 740 100 780) ; body
+  (q/line 100 755 120 748) ; right hand
+  (q/line 100 755 80 748) ; left hand
+  (q/line 100 780 120 800) ; right leg
+  (q/line 100 780 80 800) ; left leg
+  (q/ellipse 100 740 20 20)) ; head
 
 (defn -main
   [& args]
