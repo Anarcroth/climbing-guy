@@ -29,6 +29,26 @@
   [hold]
   (q/rect (get hold :x) (get hold :y) (get hold :r) (get hold :r)))
 
+(def climber (atom {:head [100 740 20 20]
+                    :body [100 740 100 780]
+                    :left-arm [100 755 80 748]
+                    :right-arm [100 755 120 748]
+                    :left-leg [100 780 80 800]
+                    :right-leg [100 780 120 800]}))
+
+(defn draw-climber-part
+  [dfn body-part]
+  (dfn ((@climber body-part) 0) ((@climber body-part) 1) ((@climber body-part) 2) ((@climber body-part) 3)))
+
+(defn draw-climber
+  []
+  (draw-climber-part q/line :body)
+  (draw-climber-part q/line :left-arm)
+  (draw-climber-part q/line :right-arm)
+  (draw-climber-part q/line :left-leg)
+  (draw-climber-part q/line :right-leg)
+  (draw-climber-part q/ellipse :head))
+
 (defn setup []
   (q/frame-rate 1)
   (q/color-mode :hsb)
@@ -47,13 +67,7 @@
   (q/fill (:color state) 255 255)
   (doseq [hold get-holds]
     (create-hold hold))
-  ; TODO move this to an atom so it can change over time
-  (q/line 100 740 100 780) ; body
-  (q/line 100 755 120 748) ; right hand
-  (q/line 100 755 80 748) ; left hand
-  (q/line 100 780 120 800) ; right leg
-  (q/line 100 780 80 800) ; left leg
-  (q/ellipse 100 740 20 20)) ; head
+  (draw-climber))
 
 (defn -main
   [& args]
