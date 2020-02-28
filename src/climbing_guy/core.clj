@@ -7,20 +7,13 @@
 
 (defn setup []
   (q/frame-rate 1)
-  (q/color-mode :hsb)
-  ; setup function returns initial state. It contains
-  ; circle color and position.
-  {:color 0
-   :angle 0})
+  (q/color-mode :rgb))
 
-(defn update-state [state]
-  ; Update sketch state by changing circle color and position.
-  {:color (mod (+ (:color state) 0.7) 255)
-   :angle (+ (:angle state) 0.1)})
+(defn update-state [state])
 
 (defn draw-state [state]
   (q/background 240)
-  (q/fill (:color state) 255 255)
+  (q/fill 150 255 255)
   (doseq [hold w/get-holds]
     (w/create-hold hold))
   (c/draw-climber))
