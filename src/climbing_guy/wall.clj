@@ -1,15 +1,18 @@
 (ns climbing-guy.wall
-  (:require [quil.core :as q]))
+  (:require [quil.core :as q]
+            [climbing-guy.screen :as s]))
 
-(defn rand-x-pos [] (+ 800 (rand-int (- 850 800))))
+(defn rand-x-pos []
+  (+ (get s/scr :height)
+     (rand-int (- (+ (get s/scr :height) 50) (get s/scr :height)))))
 
 (defn gen-holds
   ([] (gen-holds 5))
   ([nx]
-   (if (>= nx 800)
+   (if (>= nx (get s/scr :height))
      '()
      (let [x (rand-x-pos)
-           y (- 800 nx)
+           y (- (get s/scr :height) nx)
            r 10
            hold {:x x :y y :r r}]
        (cons hold (lazy-seq (gen-holds (+ 13 nx))))))))

@@ -29,7 +29,7 @@
   [& args]
   (q/sketch
    :title "Climbing-guy"
-   :size [1292 800]
+   :size [(get s/scr :width) (get s/scr :height)]
    :setup setup
    :update update-state
    :draw draw-state

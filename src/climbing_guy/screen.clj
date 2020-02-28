@@ -1,9 +1,13 @@
 (ns climbing-guy.screen
   (:import java.awt.Toolkit))
 
-(defn screen []
-  (.getScreenSize (Toolkit/getDefaultToolkit)))
+(defn get-default-screen []
+  (let [scr (.getScreenSize (Toolkit/getDefaultToolkit))]
+    {:width (int (.getWidth scr))
+     :hegiht (int (.getHeight scr))}))
 
-(defn getScreenSize []
-  [(int (.getWidth (screen)))
-   (int (.getHeight (screen)))])
+(defn screen
+  ([] (get-default-screen))
+  ([width height] {:width width :height height}))
+
+(def scr (screen 1292 800))
