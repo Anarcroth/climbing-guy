@@ -2,9 +2,18 @@
   (:require [quil.core :as q]
             [climbing-guy.screen :as s]))
 
+
+(def initial-x-pos
+  "This is the initial x position for holds."
+  100)
+(def hold-density
+  "A general density of holds."
+  100)
+
 (defn rand-x-pos []
-  (+ (get s/scr :height)
-     (rand-int (- (+ (get s/scr :height) 50) (get s/scr :height)))))
+  "Gives random x position.
+  Used for placing a hold on the X axis in a random spot, with a initial offset of `initia-x-pos`."
+  (+ initial-x-pos (rand-int hold-density)))
 
 (defn gen-holds
   ([] (gen-holds 5))
